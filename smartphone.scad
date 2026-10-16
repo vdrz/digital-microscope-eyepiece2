@@ -12,7 +12,7 @@ w_grip = 30;
 // holder_set();
 // horizontal_block(20);
 // vertical_block(len_phone);
-// rotate([0, 180, 0])
+// rotate([0, 180, 0])+
 difference() {
     grip();
     color("red")
