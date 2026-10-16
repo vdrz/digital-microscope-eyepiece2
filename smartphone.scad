@@ -1,50 +1,96 @@
-echo("Работа Вадима Разеева!");
-len_phone=145;
-width_phone=56;
-thickness_phone=8;
-corner_round=8;
+len_phone = 145;
+width_phone = 56;
+thickness_phone = 8;
+corner_round = 8;
 
-//color("red")
-//translate([0, 0, 10])
-//cube([width_phone, len_phone, thickness_phone], center=true);
+d_screw_m4 = 4.5;
+thickness_holder = 4;
+append = 15;
+w_grip = 30;
 
-module smartphone() {
-    smartphone_block();
-    cameras_block();
+
+// holder_set();
+// horizontal_block(20);
+// vertical_block(len_phone);
+// rotate([0, 180, 0])
+difference() {
+    grip();
+    color("red")
+    translate([0, w_grip/2, thickness_phone])
+    cube([31, w_grip, 2*thickness_phone], center=true);
+    
+    translate([0, -w_grip/4, 0])
+    cylinder(d=d_screw_m4, 3*thickness_phone, center=true, $fn=32);
 }
 
 
-module cameras_block() {
-    color("blue")
-    translate([width_phone/2-50, len_phone/2-10, 0])
-    cylinder(d=9, h = thickness_phone - 1);
-
-    color("blue")
-    translate([width_phone/2-50, len_phone/2-25, 0])
-    cylinder(d=9, h = thickness_phone - 1);
-}
-
-module smartphone_block(){
+module grip() {
     hull() {
-        color("red")
-        translate([width_phone/2-corner_round/2, len_phone/2-corner_round/2, 0])
-        cylinder(h=thickness_phone, d=corner_round, $fn=32, center=true);
-
-        mirror([1,0,0])
-        color("red")
-        translate([width_phone/2-corner_round/2, len_phone/2-corner_round/2, 0])
-        cylinder(h=thickness_phone, d=corner_round, $fn=32, center=true);
-
-        mirror([0,1,0])
-        color("red")
-        translate([width_phone/2-corner_round/2, len_phone/2-corner_round/2, 0])
-        cylinder(h=thickness_phone, d=corner_round, $fn=32, center=true);
-
-        mirror([1,0,0])
-        mirror([0,1,0])
-        color("red")
-        translate([width_phone/2-corner_round/2, len_phone/2-corner_round/2, 0])
-        cylinder(h=thickness_phone, d=corner_round, $fn=32, center=true);
+        translate([30/2-corner_round/2, -30/2+corner_round/2, 0])
+        cylinder(d=corner_round, 2*thickness_phone, center=true);
+        translate([-30/2+corner_round/2, -30/2+corner_round/2, 0])
+        cylinder(d=corner_round, 2*thickness_phone, center=true);
+        translate([30/2-corner_round/2, 30/2-corner_round/2, 0])
+        cylinder(d=corner_round, 2*thickness_phone, center=true);
+        translate([-30/2+corner_round/2, 30/2-corner_round/2, 0])
+        cylinder(d=corner_round, 2*thickness_phone, center=true);
     }
 }
-smartphone();
+
+
+module holder_set() {
+    horizontal_block(len_block=width_phone, offset_vertical=10);
+    vertical_block(len_block=len_phone);
+}
+
+module vertical_block(len_block) {
+    len_block = len_block + append;
+    difference() {
+        
+        hull() {
+            //translate([0, -len_phone/2, 0])
+            translate([0, -len_block/2, 0])
+            cylinder(d=9, h=thickness_holder, center=true, $fn=32);
+            
+            //translate([0, len_phone/2, 0])
+            translate([0, len_block/2, 0])
+            cylinder(d=9, h=thickness_holder, center=true, $fn=32);
+        }
+        color("red")
+        hull() {
+            // translate([0, -len_phone/2, 0])
+            translate([0, -len_block/2, 0])
+            cylinder(d=d_screw_m4, h=thickness_holder+2, center=true, $fn=32);
+            
+            // translate([0, len_phone/2, 0])
+            translate([0, len_block/2, 0])
+            cylinder(d=d_screw_m4, h=thickness_holder+2, center=true, $fn=32);
+        }
+        
+    }
+}
+
+
+module horizontal_block(len_block, offset_vertical) {
+  len_block = len_block + append;
+  translate([0, offset_vertical, 0])  
+  cylinder(d=20, h=thickness_holder, center=true, $fn=32);
+
+  difference() {
+    hull() {
+        translate([len_block/2, offset_vertical, 0])
+        cylinder(d=9, h=thickness_holder, center=true, $fn=32);
+        
+        translate([-len_block/2, offset_vertical, 0])
+        cylinder(d=9, h=thickness_holder, center=true, $fn=32);
+    }
+    color("red")
+    hull() {
+        translate([len_block/2, offset_vertical,, 0])
+        cylinder(d=d_screw_m4, h=thickness_holder+2, center=true, $fn=32);
+
+        translate([-len_block/2, offset_vertical,, 0])
+        cylinder(d=d_screw_m4, h=thickness_holder+2, center=true, $fn=32);
+   }
+ }
+}

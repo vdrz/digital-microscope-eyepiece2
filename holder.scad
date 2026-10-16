@@ -6,16 +6,19 @@ corner_round = 8;
 d_screw_m4 = 4.5;
 thickness_holder = 4;
 append = 15;
+w_grip = 30;
 
 
 // holder_set();
 // horizontal_block(20);
 // vertical_block(len_phone);
 
-color("red")
-translate([0, 0, 30/2])
-cube([30, 30, 2*thickness_phone], center=true);
-grip();
+difference() {
+    grip();
+    color("red")
+    translate([0, w_grip/2, 30/2])
+    cube([30, w_grip, 2*thickness_phone], center=true);
+}
 
 module grip() {
     hull() {
