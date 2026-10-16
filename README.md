@@ -2,7 +2,7 @@
 
 Модель в формате OpenSCAD для печати на 3D-принтере
 
-! [OpenScad] (Holder.PNG)
+![commonMD](Holder.PNG)
 
 # Ссылки
-1. [Universal Phone Microscope Adapter] (https://www.thingiverse.com/thing:431168) проект в сервисе thingiverse
+1. [Universal Phone Microscope Adapter](https://www.thingiverse.com/thing:431168) проект в сервисе thingiverse
