@@ -7,15 +7,8 @@ append = 15;
 corner_round = 8;
 w_grip = 30;
 
-//holder_set();
+holder_set();
 //vertical_block(len_phone);
-test_print_holder();
-
-module test_print_holder() {
-    translate([0,-20, 6])
-    grip();
-    horizontal_block(len_block=width_phone, offset_vertical=10);
-}
 
 module grip() {
     difference() {
